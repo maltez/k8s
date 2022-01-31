@@ -1,0 +1,51 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: my-registry
+  namespace: aaa
+  labels:
+    app : my-registry
+spec:
+  selector:
+    matchLabels:
+      project: myreg
+  template:
+    metadata:
+      labels:
+        project: myreg
+    spec:
+      volumes:
+        - name: vol
+          persistentVolumeClaim:
+            claimName: pvc
+      nodeSelector:
+        kubernetes.io/hostname: ip-10-0-1-191.us-west-2.compute.internal
+      initContainers:
+        - name : initauth
+          image: httpd:2
+          volumeMounts:
+            - name: vol
+              mountPath: "/data"
+          args:
+            - sh
+            - -c
+            - htpasswd -Bbn testuser testpassword > /data/htpasswd
+        - name : certprep
+          image: stakater/ssl-certs-generator:1.0
+          volumeMounts:
+            - name: vol
+              mountPath: "/data"
+          envFrom:
+            - configMapRef:
+                name: config
+      containers:
+        - name : my-reg
+          image: registry:latest
+          volumeMounts:
+            - name: vol
+              mountPath: "/data"
+          envFrom:
+            - configMapRef:
+                name: config
+          ports:
+            - containerPort: 5000

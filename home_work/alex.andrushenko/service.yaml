@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-reg-service
+  namespace: aaa
+spec:
+  selector:
+    project: myreg
+  ports:
+    - name: my-reg-listener
+      protocol: TCP
+      port: 443
+      targetPort: 5000
+  type: LoadBalancer

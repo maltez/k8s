@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: diff
+  namespace: study
+  labels:
+    app: superapp
+    env: dev
+spec:
+  containers:
+    - name: nginx
+      image: library/nginx:1.10.1

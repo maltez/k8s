@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: test
+  labels:
+    app: test
+    teanant: UA
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+        teanant: UA
+    spec:
+      containers:
+        - name: app1
+          image: busybox
+          command:
+            - sh
+            - -c
+            - echo Hello K8S course && sleep 300

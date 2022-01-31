@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: study
+  labels:
+    app: nginx
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 200%
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: dev
+    spec:
+      initContainers:
+        - name: hello
+          image: hello-world
+      containers:
+        - name: nginx
+          image: nginx:1.9.1
+          ports:
+            - containerPort: 80
+

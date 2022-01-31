@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo
+data:
+  simple_data1: "hellow world"
+  properties: "This is my property"
+
+  file1.properties: |
+    my_config1=123
+    my_config2="Hello buddy"
+  file2.properties: |
+    my_config3=234
+    my_config4="Goodbye buddy"

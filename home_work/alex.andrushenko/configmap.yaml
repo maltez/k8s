@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+  namespace: aaa
+data:
+  CA_SUBJECT: "myregistry.com.ua"
+  SSL_SUBJECT: "myregistry.com.ua"
+  SSL_KEY: "/data/myreg.key"
+  SSL_CERT: "/data/myreg.crt" 
+  REGISTRY_AUTH: "htpasswd"
+  REGISTRY_AUTH_HTPASSWD_PATH: "/data/htpasswd"
+  REGISTRY_AUTH_HTPASSWD_REALM: "basic-realm"
+  REGISTRY_HTTP_TLS_CERTIFICATE: "/data/myreg.crt"
+  REGISTRY_HTTP_TLS_KEY: "/data/myreg.key"
+  REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: "/data"

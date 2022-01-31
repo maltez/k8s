@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sleep-pod
+  labels:
+    app: sleep
+spec:
+  initContainers:
+    - name: init
+      image: hello-world
+  containers:
+    - name: app1
+      image: busybox
+      command:
+        - sh
+        - -c
+        - echo Hello K8S course && sleep 300
+      env:
+        - name: CONNECTION
+          value: "My super value"
+    - name: app2
+      image: busybox
+      command:
+        - sh
+        - -c
+        - echo Hello Another K8S course && sleep 300

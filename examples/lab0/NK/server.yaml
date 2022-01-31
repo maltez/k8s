@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  namespace: study
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.7.9
+      env:
+        - name: ENV1
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: property
+        - name: ENV2
+          valueFrom:
+            configMapKeyRef:
+              name: config
+              key: property2
+      ports:
+        - containerPort: 80

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo
+spec:
+  containers:
+  - name: demo
+    image: alpine
+    command: ["sleep", "3600"]
+    env:
+      - name: DATA1_VAR
+        valueFrom:
+          configMapKeyRef:
+             name: demo
+             key: simple_data1
+      - name: DATA2_VAR
+        valueFrom:
+          configMapKeyRef:
+            name: demo
+            key: properties
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    volumeMounts:
+      - mountPath: "/config"
+        name: config
+        readOnly: true
+  volumes:
+    - name: config
+      configMap:
+        name: demo
+        items:
+          - key: "file1.properties"
+            path: "file1.properties"
+          - key: "file2.properties"
+            path: "file2.properties"

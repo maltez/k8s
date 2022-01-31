@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+  namespace: study
+data:
+  property: "Hello"
+  property2: "Bye"
+  property3: "Bye1"
+  property4: "Bye2"
+  property5: "Bye3"
+  property6: "Bye4"
+  property7: "Bye5"
